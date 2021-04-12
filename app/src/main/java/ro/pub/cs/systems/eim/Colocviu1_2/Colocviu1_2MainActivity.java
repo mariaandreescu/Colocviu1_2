@@ -87,9 +87,8 @@ public class Colocviu1_2MainActivity extends AppCompatActivity {
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState.containsKey(Constants.RETURN_KEY)) {
-            if (sumaTotala == old_value) {
-                Toast.makeText(this, "The sum is: " + sumaTotala, Toast.LENGTH_LONG).show();
-            }
+            sumaTotala = savedInstanceState.getInt(Constants.RETURN_KEY, -1);
+            Toast.makeText(this, "The sum is: " + sumaTotala, Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "The sum is: " + sumaTotala, Toast.LENGTH_LONG).show();
         }
