@@ -21,6 +21,7 @@ public class Colocviu1_2MainActivity extends AppCompatActivity {
     int suma[];
     int i = 0;
     int sumaTotala = 0;
+    int old_value = 0;
 
     PressButtonListener buttonListener = new PressButtonListener();
 
@@ -60,7 +61,7 @@ public class Colocviu1_2MainActivity extends AppCompatActivity {
         allTermsText = (TextView) findViewById(R.id.all_terms);
         addButton = (Button) findViewById(R.id.add_button);
         addButton.setOnClickListener(buttonListener);
-        computeButton = (Button)findViewById(R.id.compute_button);
+        computeButton = (Button) findViewById(R.id.compute_button);
         computeButton.setOnClickListener(buttonListener);
 
 
@@ -70,11 +71,27 @@ public class Colocviu1_2MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == Constants.SECONDARY_ACTIVITY_REQUEST_CODE) {
-            if (intent != null)
-            {
+            if (intent != null) {
                 sumaTotala = intent.getIntExtra(Constants.RETURN_KEY, -1);
                 Toast.makeText(this, "The sum is: " + sumaTotala, Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString(Constants.RETURN_KEY, String.valueOf(sumaTotala));
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        if (savedInstanceState.containsKey(Constants.RETURN_KEY)) {
+            if (sumaTotala == old_value) {
+                Toast.makeText(this, "The sum is: " + sumaTotala, Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(this, "The sum is: " + sumaTotala, Toast.LENGTH_LONG).show();
         }
     }
 }
